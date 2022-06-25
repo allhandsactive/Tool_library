@@ -19,7 +19,19 @@ def add_table(conn, name, elements):
     # conn: SQLite database connection
     # name: Name of the table
     # elements: dictionary where the key is the data name and the value is the data type.
-    pass
+    try:
+        cmd = "CREATE TABLE [IF NOT EXISTS] " + name + " ( "
+        for key, value in elements.items():
+            cmd = cmd + key + " " + value + ", "
+        cmd = cmd[:-2] + ") [WITHOUT ROWID];"
+
+        cursor = con.cursor()
+        cursor.execute(cmd)
+        con.commit
+    except Error as e:
+        print(e)
+        return False
+    return True
 
 def del_table(conn, name):
     '''Delete a table'''

@@ -3,6 +3,12 @@ from sqlite import *
 from tkinter import *
 import sys
 
+def new_table():
+    conn = db_conn("test.db")
+    table_name = "users"
+    table_elements = {"Username":"text", "fname":"text", "lname":"text"}
+    add_table(conn, table_name, table_elements)
+
 def window():
     root = Tk()
     root.config(menu=menuing(root))
