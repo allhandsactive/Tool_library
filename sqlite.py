@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import sqlite3
 
 class sqlite_work:

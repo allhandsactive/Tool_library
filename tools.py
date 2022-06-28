@@ -1,30 +1,32 @@
 #!/usr/bin/env python3
-from sqlite import *
 from tkinter import *
+from sqlite import *
 import sys
 
-def new_table():
-    conn = db_conn("test.db")
-    table_name = "users"
-    table_elements = {"Username":"text", "fname":"text", "lname":"text"}
-    add_table(conn, table_name, table_elements)
-
 def window():
+    db = sqlite_work()
     root = Tk()
-    root.config(menu=menuing(root))
+    root.geometry('500x500')
+    root.config(menu=menuing(root, db))
+    main_window(root, db)
     root.mainloop()
 
-def menuing(window):
+def menuing(window, db):
     menubar = Menu(window)
     filemenu = Menu(menubar, tearoff=0)
-    filemenu.add_command(label="Open Database")
-    filemenu.add_command(label="Save Database")
+    filemenu.add_command(label="Open Database", command=db.db_conn("/home/daemoneye/.tools/aha.db"))
     filemenu.add_command(label="Export")
     filemenu.add_separator()
-    filemenu.add_command(label="Exit", command=window.quit)
+    filemenu.add_command(label="Exit", command=window.destroy)
     menubar.add_cascade(label="File", menu=filemenu)
 
     return menubar
+
+def main_window(window, db):
+    checkout_item = Button(window, text = "Checkout a tool")
+    return_item = Button(window, text = "Return a tool")
+    checkout_item.pack()
+    return_item.pack()
 
 def main():
     window()
